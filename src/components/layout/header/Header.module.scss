@@ -1,0 +1,18 @@
+.header {
+  padding-block: 18px;
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      color: rgb(119, 119, 120);
+      font-weight: 500;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    p:hover {
+      color: rgb(24, 22, 22);
+    }
+  }
+}

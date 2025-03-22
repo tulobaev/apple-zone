@@ -1,0 +1,321 @@
+// Variables
+$primary-color: #4f46e5;
+$primary-hover: #4338ca;
+$secondary-color: #f9fafb;
+$text-color: #111827;
+$text-light: #6b7280;
+$border-color: #d1d5db;
+$error-color: #ef4444;
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 15px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$transition: all 0.3s ease;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: $text-color;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: $text-light;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: $transition;
+
+  &:hover {
+    color: $primary-hover;
+  }
+}
+
+.auth-container {
+  min-height: 90vh;
+  @include flex-center;
+  padding: 2rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+  @include flex-column;
+
+  @media (max-width: 500px) {
+    max-width: 100%;
+  }
+}
+
+.auth-header {
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+}
+
+.auth-form {
+  padding: 1rem 2rem;
+  @include flex-column;
+  gap: 1.25rem;
+}
+
+// Form elements
+.form-group {
+  @include flex-column;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: $transition;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+
+    &.error {
+      border-color: $error-color;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($error-color, 0.2);
+      }
+    }
+
+    &::placeholder {
+      color: lighten($text-light, 15%);
+    }
+  }
+
+  .error-message {
+    color: $error-color;
+    font-size: 0.75rem;
+  }
+
+  &.password-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.forgot-password {
+  font-size: 0.875rem;
+}
+
+// Checkbox style
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked ~ .checkmark {
+      background-color: $primary-color;
+      border-color: $primary-color;
+
+      &:after {
+        display: block;
+      }
+    }
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    transition: $transition;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 6px;
+      top: 2px;
+      width: 4px;
+      height: 9px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  &:hover input ~ .checkmark {
+    background-color: #f9fafb;
+  }
+}
+
+.terms-container {
+  font-size: 0.875rem;
+
+  a {
+    display: inline;
+    font-weight: 500;
+  }
+}
+
+// Button styles
+.submit-button {
+  padding: 0.75rem 1rem;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background-color: $primary-hover;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+  }
+}
+
+// Divider
+.auth-divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 2rem;
+
+  &:before,
+  &:after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid $border-color;
+  }
+
+  span {
+    padding: 0 1rem;
+    color: $text-light;
+    font-size: 0.875rem;
+  }
+}
+
+// Social login
+.social-login {
+  padding: 0 2rem 1rem;
+  @include flex-column;
+  gap: 1rem;
+}
+
+.social-button {
+  @include flex-center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid $border-color;
+  border-radius: 0.5rem;
+  background-color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+
+  svg {
+    height: 20px;
+    width: 20px;
+  }
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  &.google {
+    &:hover {
+      background-color: #f8fafc;
+    }
+  }
+
+  &.facebook {
+    &:hover {
+      background-color: #f0f4f8;
+    }
+  }
+}
+
+// Footer
+.auth-footer {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid $border-color;
+
+  p {
+    font-size: 0.875rem;
+
+    a {
+      font-weight: 500;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .auth-card {
+    border-radius: 0.75rem;
+  }
+
+  .auth-header {
+    padding: 1.5rem 1.5rem 0.75rem;
+  }
+
+  .auth-form,
+  .social-login {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .auth-divider {
+    margin: 1.25rem 1.5rem;
+  }
+
+  .auth-footer {
+    padding: 1.25rem 1.5rem;
+  }
+}
