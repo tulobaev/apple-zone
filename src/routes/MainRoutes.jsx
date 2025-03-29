@@ -2,24 +2,22 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AdminPage from "../pages/AdminPage";
 import EditPage from "../pages/EditPage";
-import Login from "../authentication/Login";
-import Register from "../authentication/Register";
+import { useAuth } from "../context/AppleAuthContext";
+import ListProduct from "../components/products/ListProduct";
+import DetailsPage from "../pages/DetailsPage";
+import AppleProfile from "../authentication/profile/AppleProfile";
+import Login from "../authentication/login/Login";
+import Register from "../authentication/register/Register";
+import NotFoundPage from "../pages/NotFoundPage";
 import HomePage from "../pages/HomePage";
-import StorePage from "../pages/StorePage";
+import BasketPage from "../pages/BasketPage";
 
 const MainRoutes = () => {
+  const { user } = useAuth();
   const publicRoutes = [
     {
       link: "/",
       element: <HomePage />,
-    },
-    {
-      link: "/admin",
-      element: <AdminPage />,
-    },
-    {
-      link: "/edit/:id",
-      element: <EditPage />,
     },
     {
       link: "/login",
@@ -30,8 +28,34 @@ const MainRoutes = () => {
       element: <Register />,
     },
     {
-      link: "/store",
-      element: <StorePage />,
+      link: "/list",
+      element: <ListProduct />,
+    },
+    {
+      link: "/details/:id",
+      element: <DetailsPage />,
+    },
+    {
+      link: "/profile",
+      element: <AppleProfile />,
+    },
+    {
+      link: "*",
+      element: <NotFoundPage />,
+    },
+    {
+      link: "/basket",
+      element: <BasketPage />,
+    },
+  ];
+  const privateRoutes = [
+    {
+      link: "/admin",
+      element: <AdminPage />,
+    },
+    {
+      link: "/edit/:id",
+      element: <EditPage />,
     },
   ];
   return (
@@ -39,6 +63,13 @@ const MainRoutes = () => {
       {publicRoutes.map((item, index) => (
         <Route path={item.link} element={item.element} key={index} />
       ))}
+      {user
+        ? user.email === "talgattulobaev519@gmail.com"
+          ? privateRoutes.map((item, index) => (
+              <Route path={item.link} element={item.element} key={index} />
+            ))
+          : null
+        : null}
     </Routes>
   );
 };

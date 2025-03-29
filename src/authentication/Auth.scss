@@ -3,7 +3,7 @@ $primary-color: #4f46e5;
 $primary-hover: #4338ca;
 $secondary-color: #f9fafb;
 $text-color: #111827;
-$text-light: #6b7280;
+// $text-light: #6b7280;
 $border-color: #d1d5db;
 $error-color: #ef4444;
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -29,10 +29,6 @@ h1 {
   font-weight: 700;
   color: $text-color;
   margin-bottom: 0.5rem;
-}
-
-p {
-  color: $text-light;
 }
 
 a {
@@ -110,7 +106,7 @@ a {
     }
 
     &::placeholder {
-      color: lighten($text-light, 15%);
+      color: lighten(#6b7280, 15%);
     }
   }
 
@@ -234,7 +230,7 @@ a {
 
   span {
     padding: 0 1rem;
-    color: $text-light;
+    color: #6b7280;
     font-size: 0.875rem;
   }
 }

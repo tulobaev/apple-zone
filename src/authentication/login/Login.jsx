@@ -1,53 +1,27 @@
 import { Link } from "react-router-dom";
-import "./Auth.scss";
-import { useAuth } from "../context/AppleAuthContext";
+import "../../authentication/Auth.scss";
+import { useAuth } from "../../context/AppleAuthContext";
 import { useState } from "react";
 
-const Register = () => {
-  const { signInWithGoogle, register, signInWithFacebook } = useAuth();
+const Login = () => {
+  const { signInWithGoogle, signInWithFacebook, signInWithEmail } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
-    if (e) e.preventDefault();
-    if (!email || !password || !confirmPassword || !fullName) {
-      setError("Пожалуйста, заполните все поля");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setError("Пароли не совпадают");
-      return;
-    }
-
-    setError("");
-    register(email, password, fullName);
+    e.preventDefault();
+    signInWithEmail(email, password);
   };
 
   return (
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h1>Create Account</h1>
-          <p>Fill in the details to get started</p>
+          <h1>Welcome Back</h1>
+          <p>Sign in to your account to continue</p>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
-          {error && <div className="error-message">{error}</div>}
-          <div className="form-group">
-            <label htmlFor="fullName">Full Name</label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="John Doe"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -55,46 +29,35 @@ const Register = () => {
               id="email"
               name="email"
               placeholder="your@email.com"
-              value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <div className="password-header">
+              <label htmlFor="password">Password</label>
+            </div>
+
             <input
               type="password"
               id="password"
-              name="password"
               placeholder="••••••••"
-              value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="••••••••"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-
-          <div className="form-group terms-container">
+          <div className="form-group remember-me">
             <label className="checkbox-container">
-              <input type="checkbox" name="agreeTerms" />
-              <span className="checkmark"></span>I agree to the
-              <Link to="/terms">Terms and Conditions</Link> and{" "}
-              <Link to="/privacy">Privacy Policy</Link>
+              <input type="checkbox" name="rememberMe" />
+              <span className="checkmark"></span>
+              Remember me
             </label>
           </div>
 
           <button type="submit" className="submit-button">
-            Create Account
+            Sign In
           </button>
         </form>
 
@@ -122,7 +85,7 @@ const Register = () => {
                 fill="#EA4335"
               />
             </svg>
-            Sign up with Google
+            Sign in with Google
           </button>
 
           <button
@@ -135,13 +98,13 @@ const Register = () => {
                 fill="#1877F2"
               />
             </svg>
-            Sign up with Facebook
+            Sign in with Facebook
           </button>
         </div>
 
         <div className="auth-footer">
           <p>
-            Already have an account? <Link to="/login">Sign in</Link>
+            Don't have an account? <Link to="/register">Sign up</Link>
           </p>
         </div>
       </div>
@@ -149,4 +112,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

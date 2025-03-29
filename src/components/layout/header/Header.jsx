@@ -11,6 +11,7 @@ import {
   MenuItem,
   Typography,
   IconButton,
+  Badge,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AppleAuthContext";
@@ -31,22 +32,16 @@ const Header = () => {
   const handleLogout = () => {
     logOut();
     handleCloseUserMenu();
-    navigate("/");
   };
 
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
+  const settings = ["Profile", "Logout"];
 
   const handleMenuItemClick = (setting) => {
     if (setting === "Logout") {
       handleLogout();
+      navigate("/login");
     } else if (setting === "Profile") {
       navigate("/profile");
-      handleCloseUserMenu();
-    } else if (setting === "Account") {
-      navigate("/account");
-      handleCloseUserMenu();
-    } else if (setting === "Dashboard") {
-      navigate("/dashboard");
       handleCloseUserMenu();
     }
   };
@@ -61,7 +56,7 @@ const Header = () => {
           <Tooltip onClick={() => navigate("/login")}>
             <AppleIcon />
           </Tooltip>
-          <p onClick={() => navigate("/store")}>Store</p>
+          <p onClick={() => navigate("/list")}>Store</p>
           <p>Mac</p>
           <p>iPad</p>
           <p>iPhone</p>
@@ -77,8 +72,10 @@ const Header = () => {
             <SearchIcon />
           </Tooltip>
 
-          <Tooltip title="Basket">
-            <ShoppingBagIcon />
+          <Tooltip onClick={() => navigate("/basket")} title="Basket">
+            <Badge>
+              <ShoppingBagIcon />
+            </Badge>
           </Tooltip>
 
           {user ? (

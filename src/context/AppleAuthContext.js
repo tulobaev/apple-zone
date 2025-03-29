@@ -10,8 +10,7 @@ import {
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { Alert } from "@mui/material";
-import { auth, db } from "../firebase/Firebase";
-import { doc, setDoc } from "firebase/firestore/lite";
+import { auth } from "../firebase/Firebase";
 import { toast } from "react-toastify";
 
 const authContext = createContext();
@@ -87,11 +86,6 @@ const AppleAuthContext = ({ children }) => {
       await updateProfile(user, {
         displayName: fullName,
       });
-      await setDoc(doc(db, "Users", user.uid), {
-        email: user.email,
-        firstName: fullName,
-        uid: user.uid,
-      });
     } catch (error) {
       dispatch({
         type: "ERROR",
@@ -121,6 +115,24 @@ const AppleAuthContext = ({ children }) => {
     }
   }
 
+  async function updateProfileUser(displayName, photoURL) {
+    try {
+      await updateProfile(auth.currentUser, {
+        displayName: displayName,
+        photoURL: photoURL,
+      });
+      toast.success("Profile updated!", {
+        position: "top-center",
+      });
+    } catch (error) {
+      toast.error(error.message, {
+        position: "top-center",
+      });
+    } finally {
+      getUser();
+    }
+  }
+
   const values = {
     signInWithGoogle,
     user: state.user,
@@ -129,6 +141,7 @@ const AppleAuthContext = ({ children }) => {
     register,
     signInWithFacebook,
     signInWithEmail,
+    updateProfileUser,
   };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };

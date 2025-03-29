@@ -1,5 +1,9 @@
 .header {
   padding-block: 18px;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(5px);
+  z-index: 1;
   .content {
     display: flex;
     justify-content: space-between;
@@ -12,6 +16,7 @@
       cursor: pointer;
     }
     p:hover {
+      text-decoration: underline;
       color: rgb(24, 22, 22);
     }
   }

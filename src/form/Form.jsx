@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from "react";
 import scss from "./Form.module.scss";
 import { useProduct } from "../context/AppleProductContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const initialValue = {
   name: "",
   category: "",
   price: "",
   description: "",
-  specifications: "",
   stockQuantity: "",
   photo: "",
 };
 
 const Form = ({ isEdit }) => {
-  const { addProduct, getOneProduct } = useProduct();
+  const { addProduct, getOneProduct, updateProduct, oneProduct } = useProduct();
   const [product, setProduct] = useState(initialValue);
   const [previewUrl, setPreviewUrl] = useState("");
-
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getOneProduct(id);
-  });
+  }, []);
 
+  useEffect(() => {
+    if (oneProduct && isEdit) {
+      setProduct(oneProduct);
+      setPreviewUrl(oneProduct.photo);
+    }
+  }, [oneProduct]);
+
+  //! обработчик инпута и его значение
   const handleChange = (e) => {
     if (e.target.name === "price" || e.target.name === "stockQuantity") {
       let productObj = { ...product, [e.target.name]: Number(e.target.value) };
@@ -36,7 +43,9 @@ const Form = ({ isEdit }) => {
       setPreviewUrl(e.target.value);
     }
   };
+  //! обработчик инпута и его значение
 
+  //! отправка данных, проверка на пустоту полей
   const handleSubmit = (event) => {
     event.preventDefault();
     if (
@@ -45,18 +54,28 @@ const Form = ({ isEdit }) => {
       !product.price ||
       !product.stockQuantity
     ) {
-      alert("Please fill in all required fields.");
+      alert("Пожалуйста заполните поле!!!");
       return;
     }
-    addProduct(product);
+    //!
+    if (isEdit) {
+      updateProduct(id, product);
+    } else {
+      addProduct(product);
+    }
+    //!
+    navigate("/list");
     setProduct(initialValue);
     setPreviewUrl("");
   };
+  //! отправка данных, проверка на пустоту полей
 
+  //! очистка данных в инпуте
   const handleCancel = () => {
     setProduct(initialValue);
     setPreviewUrl("");
   };
+  //! очистка данных в инпуте
 
   const appleCategories = [
     "iPhone",
@@ -185,7 +204,7 @@ const Form = ({ isEdit }) => {
                         <path d="M17 8l-5-5-5 5" />
                         <path d="M12 3v12" />
                       </svg>
-                      <span>Paste image URL here</span>
+                      <span>Your img will appear here</span>
                     </div>
                   )}
                 </div>

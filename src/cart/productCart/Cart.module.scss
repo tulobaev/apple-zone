@@ -1,0 +1,247 @@
+$primary-color: #0071e3;
+$gray-light: #f5f5f7;
+$gray-medium: #86868b;
+$gray-dark: #1d1d1f;
+$white: #ffffff;
+$black: #000000;
+$font-primary: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+$border-radius: 18px;
+$card-spacing: 12px;
+$transition-default: all 0.3s ease-in-out;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin button-reset {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
+.subtitle {
+  font-weight: 400;
+  color: $gray-medium;
+}
+
+.header {
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 32px;
+
+    .subtitle {
+      font-size: 32px;
+    }
+  }
+}
+
+#cart {
+  padding-block: 40px;
+}
+
+.carousel {
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+
+  &::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+    background: transparent;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  .product_cards {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+    width: fit-content;
+    animation: scrollProducts 30s linear infinite;
+  }
+
+  &:hover .product_cards {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes scrollProducts {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50%));
+  }
+}
+
+.product_card {
+  @include flex-column;
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+  min-width: 280px;
+  width: 320px;
+  transition: $transition-default;
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .product_title {
+    font-size: 22px;
+    margin-bottom: 20px;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+  }
+
+  .product_image {
+    @include flex-center;
+    height: 240px;
+    margin-bottom: 20px;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .closerLookButton {
+    padding: 10px 10px;
+    position: absolute;
+    left: 50%;
+    top: 63%;
+    transform: translateX(-50%);
+    background: #1d1d1f;
+    color: #ffffff;
+    border: none;
+    border-radius: 980px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0071e3;
+      transition: 300ms ease-in;
+    }
+  }
+
+  .product_price {
+    margin-bottom: 20px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+      color: $gray-medium;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .delete {
+        font-size: 18px;
+        cursor: pointer;
+
+        &:hover {
+          color: red;
+          transition: 700ms ease-out;
+        }
+      }
+
+      .edit {
+        font-size: 18px;
+        cursor: pointer;
+
+        &:hover {
+          color: rgb(22, 152, 22);
+          transition: 700ms ease-out;
+        }
+      }
+    }
+  }
+
+  .buy_button {
+    @include button-reset;
+    @include flex-center;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: 980px;
+    font-size: 14px;
+    padding: 5px 5px;
+    width: 50px;
+    margin: 0 auto;
+    transition: $transition-default;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .product_cards {
+    gap: 15px;
+  }
+
+  .product_card {
+    padding: 15px;
+    min-width: 220px;
+
+    .product_title {
+      font-size: 18px;
+      min-height: 46px;
+    }
+
+    .product_image {
+      height: 200px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 28px;
+
+    .subtitle {
+      font-size: 28px;
+    }
+  }
+
+  .product_card {
+    min-width: 100%;
+  }
+}
