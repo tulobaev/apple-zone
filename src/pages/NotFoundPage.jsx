@@ -15,7 +15,7 @@ const NotFoundPage = () => {
           <p style={styles.text}>
             It may have been moved or doesn't exist anymore.
           </p>
-          <a onClick={() => navigate("/list")} style={styles.link}>
+          <a onClick={() => navigate("/")} style={styles.link}>
             Return to Home
           </a>
         </div>

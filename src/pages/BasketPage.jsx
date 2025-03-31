@@ -15,7 +15,7 @@ const BasketPage = () => {
   return (
     <div style={{ paddingBlock: "40px" }}>
       <div className="container">
-        {cart === null ? (
+        {!cart ? (
           <Loader />
         ) : cart.products && cart.products.length > 0 ? (
           cart.products.map((item, index) => (
@@ -29,16 +29,22 @@ const BasketPage = () => {
           <h1>Корзина пуста</h1>
         )}
 
-        <div className={scss.cartSummary}>
-          <h2>There is 1 item in your cart for a total of 0 $</h2>
+        {cart.products.length > 0 ? (
+          <div className={scss.cartSummary}>
+            <h2>
+              There is 1 item in your cart for a total of {cart.totalCount} $
+            </h2>
 
-          <Button
-            onClick={() => alert("Thank you for your purchase 😊")}
-            variant="contained"
-          >
-            Buy
-          </Button>
-        </div>
+            <Button
+              onClick={() => alert("Thank you for your purchase 😊")}
+              variant="contained"
+            >
+              Buy
+            </Button>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

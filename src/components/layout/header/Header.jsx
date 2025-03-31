@@ -15,11 +15,13 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AppleAuthContext";
+import { useCart } from "../../../context/CartContext";
 
 const Header = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { cart } = useCart();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -73,7 +75,7 @@ const Header = () => {
           </Tooltip>
 
           <Tooltip onClick={() => navigate("/basket")} title="Basket">
-            <Badge>
+            <Badge badgeContent={!cart.products ? "" : cart.products.length}>
               <ShoppingBagIcon />
             </Badge>
           </Tooltip>

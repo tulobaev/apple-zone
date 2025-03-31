@@ -9,16 +9,23 @@ const initialState = {
   dataProduct: [],
   oneProduct: {},
   onePage: {},
+  fullData: [],
 };
 
 const reduce = (state = initialState, action) => {
   switch (action.type) {
     case stateType.GET:
-      return { ...state, dataProduct: action.payload };
+      return {
+        ...state,
+        dataProduct: action.payload,
+        fullData: action.payload,
+      };
     case stateType.GET_ONE_DATA:
       return { ...state, oneProduct: action.payload };
     case stateType.ONE_PAGE:
       return { ...state, onePage: action.payload };
+    case stateType.FILTER:
+      return { ...state, dataProduct: action.payload };
     default:
       return state;
   }
@@ -86,6 +93,27 @@ const AppleProductContext = ({ children }) => {
     }
   }
   //! search
+
+  // //! filter
+  // function filterProduct(value) {
+  //   value = value.trim().toLowerCase();
+
+  //   if (value === "all") {
+  //     dispatch({
+  //       type: stateType.FILTER,
+  //       payload: state.fullData,
+  //     });
+  //   } else {
+  //     let result = state.fullData.filter(
+  //       (item) => item.category.trim().toLowerCase() === value
+  //     );
+  //     dispatch({
+  //       type: stateType.FILTER,
+  //       payload: result,
+  //     });
+  //   }
+  // }
+  // //! filter
 
   const values = {
     addProduct,

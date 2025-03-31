@@ -1,0 +1,55 @@
+#category {
+  padding-block: 50px;
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+
+    .text {
+      display: flex;
+      max-width: 600px;
+      width: 100%;
+
+      span {
+        color: rgb(29, 29, 31);
+        font-size: clamp(1.563rem, 1.267rem + 1.48vw, 2.375rem);
+        font-weight: 600;
+        letter-spacing: -0.003em;
+        line-height: 1.0834933333;
+      }
+
+      h1 {
+        color: rgb(110, 110, 115);
+        font-size: clamp(1.563rem, 1.267rem + 1.48vw, 2.375rem);
+        font-weight: 600;
+        letter-spacing: -0.003em;
+        line-height: 1.0834933333;
+      }
+    }
+  }
+
+  .block {
+    display: flex;
+    gap: 35px;
+    max-width: 1280px;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .block::-webkit-scrollbar {
+    width: 0;
+  }
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+  .card {
+    cursor: pointer;
+    max-width: 200px;
+    text-align: center;
+    line-height: 30px;
+  }
+
+  .card img {
+    max-width: 140px;
+  }
+}

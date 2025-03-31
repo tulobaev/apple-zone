@@ -81,9 +81,9 @@ const Form = ({ isEdit }) => {
     "iPhone",
     "iPad",
     "Mac",
-    "Apple Watch",
+    "AppleWatch",
     "AirPods",
-    "Apple TV",
+    "AppleTV",
     "HomePod",
     "Accessories",
   ];
